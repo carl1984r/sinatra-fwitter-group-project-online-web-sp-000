@@ -18,15 +18,16 @@ class UsersController < ApplicationController
 
   post '/signup' do
 
-    params.each do |param, input|
-      if input.empty?
+    if params[:username].empty? || params[:email].empty? || params[:password].empty?
+        flash[:user_error] = "Form must be fully completed."
+        #erb :"users/new_user"
+        #flash will work under erb - spec tests are looking for a redirect.
         redirect to '/signup'
-      end
+    else
+      user = User.create(:username => params["username"], :email => params["email"], :password => params["password"])
+      session[:user_id] = user.id
+      redirect to '/tweets'
     end
-
-    user = User.create(:username => params["username"], :email => params["email"], :password => params["password"])
-    session[:user_id] = user.id
-    redirect to '/tweets'
 
   end
 

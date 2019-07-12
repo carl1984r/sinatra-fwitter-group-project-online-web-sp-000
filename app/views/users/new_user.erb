@@ -1,7 +1,8 @@
-<% if flash.has?(:user_error) %>
-  <%= flash[:user_error] %>
+<% if flash %>
+  <strong><%= flash[:user_error] %></strong>
 <% end %>
 
+<br><br>
 
 <strong>Account Sign Up</strong>
 <p>Please complete the form below to create a new user account.</p>
